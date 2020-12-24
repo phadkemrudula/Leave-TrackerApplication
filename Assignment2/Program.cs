@@ -3,11 +3,11 @@ using System.IO;
 
 namespace LeaveTracker
 {
-    class Program
+    public class Program
     {
         static string path = "";
 
-        private void PathGetter(){
+        public bool PathGetter(){
             try{
                     p:
                         Console.WriteLine("Enter Path to csv file : ");
@@ -18,14 +18,16 @@ namespace LeaveTracker
                     string FileName = fi.Name;  
                     
                     string extn = fi.Extension;
-                    Console.WriteLine("File Extension: {0}", extn);
+                    //Console.WriteLine("File Extension: {0}", extn);
                     if(extn!=".csv"){
                         Console.WriteLine("Invalid Extension");
                         goto p;
                     }
+                    return true;
                 }
                 catch(Exception ){
                     Console.WriteLine("Invalid Path");
+                    return false;
                 }
         }
         
@@ -51,13 +53,13 @@ namespace LeaveTracker
 
             do{
                 Console.WriteLine("Menu:\n1.Create Leave\n2.List Of Leaves\n3.Update Leave\n4.Search Leave\n");
-                Console.WriteLine("Enter ypur choice : ");
+                Console.WriteLine("Enter your choice : ");
                 choice=Convert.ToInt32(Console.ReadLine());
                 switch(choice){
                     case 1 :{
+                        //call to create leave
                         CreateLeave cl=new CreateLeave();
                         cl.Leave(w,id,path);
-                        //call to create leave
                         break;
                     }
                     case 2 :{
@@ -68,14 +70,14 @@ namespace LeaveTracker
                     }
                     case 3 :{
                         //call to Update leave
-                        //UpdateLeaves ul= new UpdateLeaves();
-                        //ul.Update(id);
+                        UpdateLeaves ul= new UpdateLeaves();
+                        ul.Update(id, path);
                         break;
                     }
                     case 4 :{
                         //call to Search leave
                         int ch;
-                        Console.WriteLine("Search By\n1.Tile\n2.Status\n");
+                        Console.WriteLine("Search By\n1.Title\n2.Status\n");
                         Console.WriteLine("Enter Your choice: ");
                         ch=Convert.ToInt32(Console.ReadLine());
                         switch(ch){
@@ -93,7 +95,7 @@ namespace LeaveTracker
                                 
                             }
                             default :
-                                Console.WriteLine("Invalid choices\n");
+                                Console.WriteLine("Invalid choice\n");
                                 break;
                         }
                         break;
@@ -103,15 +105,14 @@ namespace LeaveTracker
                         
                     }
                     default:
-                        Console.WriteLine("Invalid choices\n");
+                        Console.WriteLine("Invalid choice\n");
                         break;
 
 
                 }
             }while(choice!=0);
-
-
-            
         }
     }
 }
+
+
